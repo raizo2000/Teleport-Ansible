@@ -1,0 +1,4 @@
+
+teleport-pubkey: https://deb.releases.teleport.dev/teleport-pubkey.asc
+archive-keyring: /usr/share/keyrings/teleport-archive-keyring.asc
+teleport-route: /etc/apt/sources.list.d/teleport.list
