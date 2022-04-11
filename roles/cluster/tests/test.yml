@@ -1,4 +1,4 @@
 - hosts: nodes
   remote_user: root
   roles:
-    - common
+    - cluster
