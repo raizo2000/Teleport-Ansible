@@ -1,0 +1,5 @@
+#file: nodes.yaml
+- hosts: localhost
+  roles:
+    - common
+    - node

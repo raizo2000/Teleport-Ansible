@@ -1,0 +1,5 @@
+#file: cluster.yaml
+- hosts: localhost
+  roles:
+    - common
+    - cluster

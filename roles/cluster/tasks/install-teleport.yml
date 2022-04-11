@@ -1,0 +1,39 @@
+---
+# Install teleport
+
+- name: Log Bash configuration
+  debug:
+    msg: About to begin bash configuration
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Curl Route Instalation
+  command: curl {{teleport-pubkey}} -o {{archive-keyring}}
+
+- name: Creation of teleport.list
+  tags: addfile
+  file: 
+     path: '{{teleportlist-route}}'
+     state: touch
+
+- name: Insert route on teleport.list
+  tags: adddata
+  lineinfile:
+     path: '{{teleportlist-route}}'
+     line: "deb [signed-by={{archive-keyring}}] https://deb.releases.teleport.dev/ stable main"
+     state: present
+     backup: yes
+
+     register: addTeleport
+
+- name: Update APT package
+  apt:
+    update_cache: yes
+
+- name: Python3-dnf Instalation
+  command: apt install python3-dnf
+
+- name: Teleport Install
+  command: apt-get install teleport
