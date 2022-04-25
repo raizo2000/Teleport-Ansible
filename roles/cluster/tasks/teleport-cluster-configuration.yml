@@ -51,6 +51,14 @@
         tunnel_listen_addr: 0.0.0.0:3024
         public_addr: {{cluster-ip}}
 
+- name: teleport start
+  become: true
+  command: systemctl start teleport
+
+- name: teleport admin creation
+  become: true
+  command: tctl users add admin --roles=editor,access --logins=root,ubuntu,ec2-user
+
 - name: Cluster comfiguration complete
   debug:
     msg: Cluster configuration file succesfull
