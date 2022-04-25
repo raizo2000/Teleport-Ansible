@@ -1,4 +1,5 @@
-- hosts: nodes
+---
+- hosts: localhost
   remote_user: root
   roles:
     - cluster

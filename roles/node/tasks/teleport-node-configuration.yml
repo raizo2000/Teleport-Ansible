@@ -1,0 +1,42 @@
+---
+#Teleport nodes configuration
+- name: Delete bases configuration
+  become: true
+  tags: deleteFile
+  file: 
+     path: "/etc/teleport.yaml"
+     state: absent
+
+- name: Creation of teleport.yaml
+  become: true
+  tags: addFileConfiguration
+  file: 
+     path: "/etc/teleport.yaml"
+     state: touch
+
+- name: Cluster configuration
+  become: true
+  tags: addConfiguration
+  copy:
+    dest: "/etc/teleport.yaml"
+    content:
+      version: v2
+      teleport:
+        nodename: node
+        data_dir: /var/lib/teleport
+        auth_token: {{auth_token_key}}
+        auth_servers:
+          -  {{auth_servers_ip}}
+        log:
+          output: stderr
+          severity: INFO
+          format:
+            output: text
+        ca_pin: {{ca_pin_key}}
+        advertise_ip: {{node_ip}}
+      auth_service:
+        enabled: "no"
+      ssh_service:
+        enabled: "yes"
+      proxy_service:
+        enabled: "no"

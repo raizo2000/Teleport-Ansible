@@ -1,0 +1,10 @@
+---
+#teleport configuration
+
+- name: Teleport configuration creation
+  become: true
+  command: teleport configure --acme --acme-email=example@email.com --cluster-name=example-machine -o file
+
+- name: Teleport comfiguration complete
+  debug:
+    msg: Configuration file succesfull

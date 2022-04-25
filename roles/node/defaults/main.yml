@@ -1,5 +1,6 @@
 ---
 # defaults file for common
-teleport-pubkey: https://deb.releases.teleport.dev/teleport-pubkey.asc
-archive-keyring: /usr/share/keyrings/teleport-archive-keyring.asc
-teleportlist-route: /etc/apt/sources.list.d/teleport.list
+ca_pin_key: sha256:766aafa1475bcf81ab8a2d9368d5f8ca984e794c95a0a1ea9c763fc11c2c2e00
+auth_token_key: b1ee39748815ba5f6358363b71d6ad9f
+auth_servers_ip: 192.168.64.2:3025
+node_ip: 192.168.64.4

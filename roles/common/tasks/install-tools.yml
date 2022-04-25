@@ -1,2 +1,20 @@
-# Install teleport
+---
+# Install tools
 
+- name: Log common tools installation start
+  debug:
+    msg: About to begin common tools installation
+
+- name: Common tools installation
+  become: true
+  apt:
+    pkg:
+      - curl
+      - python3-pip
+      - net-tools
+    state: latest
+    update_cache: true
+
+- name: Log common tools installation completion
+  debug:
+    msg: Finishing common tools installation

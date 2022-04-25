@@ -1,0 +1,56 @@
+---
+#Teleport cluster configuration
+- name: Delete base configuration
+  become: true
+  tags: deleteFile
+  file: 
+     path: "/etc/teleport.yaml"
+     state: absent
+
+- name: Creation of teleport.yaml
+  become: true
+  tags: addFileConfiguration
+  file: 
+     path: "/etc/teleport.yaml"
+     state: touch
+
+- name: Cluster configuration
+  become: true
+  tags: addConfiguration
+  copy:
+    dest: "/etc/teleport.yaml"
+    content:
+      version: v2
+      teleport:
+        nodename: primary
+        data_dir: /var/lib/teleport
+        log:
+          output: stderr
+          severity: INFO
+          format:
+            output: text
+          ca_pin: []
+          diag_addr: ""
+      auth_service:
+        enabled: "yes"
+        listen_addr: 0.0.0.0:3025
+        cluster_name: cluster
+        proxy_listener_mode: multiplex
+      ssh_service:
+        enabled: "yes"
+        labels:
+          env: example
+        commands:
+        - name: hostname
+          command: [hostname]
+          period: 1m0s
+      proxy_service:
+        enabled: "yes"
+        listen_addr: 0.0.0.0:3023
+        web_listen_addr: {{cluster-ip}}
+        tunnel_listen_addr: 0.0.0.0:3024
+        public_addr: {{cluster-ip}}
+
+- name: Cluster comfiguration complete
+  debug:
+    msg: Cluster configuration file succesfull

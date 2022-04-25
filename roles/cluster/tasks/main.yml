@@ -1,4 +1,5 @@
+---
 # tasks file for common
 
-- name: Install teleport
-  include_task: install-teleport.yml
+- name: Cluster configuration
+  include_task: teleport-cluster-configuration.yml

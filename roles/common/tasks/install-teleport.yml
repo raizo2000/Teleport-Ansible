@@ -6,19 +6,22 @@
     msg: About to begin bash configuration
 
 - name: Update apt cache
+  become: true
   apt:
     update_cache: yes
 
 - name: Curl Route Instalation
-  command: curl {{teleport-pubkey}} -o {{archive-keyring}}
+  command: curl https://deb.releases.teleport.dev/teleport-pubkey.asc -o {{archive-keyring}}
 
 - name: Creation of teleport.list
+  become: true
   tags: addfile
   file: 
      path: '{{teleportlist-route}}'
      state: touch
 
 - name: Insert route on teleport.list
+  become: true
   tags: adddata
   lineinfile:
      path: '{{teleportlist-route}}'
@@ -29,11 +32,14 @@
      register: addTeleport
 
 - name: Update APT package
+  become: true
   apt:
     update_cache: yes
 
 - name: Python3-dnf Instalation
+  become: true
   command: apt install python3-dnf
 
 - name: Teleport Install
+  become: true
   command: apt-get install teleport
