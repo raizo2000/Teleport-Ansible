@@ -1,4 +1,6 @@
 # tasks file for common
+- name: Install tools
+  include_task: install-tools.yml
 
 - name: Install teleport
   include_task: install-teleport.yml
